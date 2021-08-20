@@ -1,35 +1,18 @@
 require("dotenv").config();
 const express = require("express");
-const hbs = require("hbs");
 
 const app = express();
-const port = process.env.PORT || 8081;
-
-//hbs
-app.set("view engine", "hbs");
-hbs.registerPartials(__dirname + "/views/partials");
+const port = process.env.PORT || 8082;
 
 //serve static content
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.render("home", { title: "Home", name: "Camilo Rivera" });
-});
-
-app.get("/hello", (req, res) => {
-  res.send("hello route");
-});
-
-app.get("/generic", (req, res) => {
-  res.render("generic", { title: "generic", name: "Camilo Rivera" });
-});
-
-app.get("/elements", (req, res) => {
-  res.render("elements", { title: "elements", name: "Camilo Rivera" });
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get("*", (req, res) => {
-  res.render("404", { title: "not found" });
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 app.listen(port, () => {
